@@ -7,53 +7,89 @@
     <meta charset="utf-8" />
     <title>RF Tester GUI</title>
     <style type="text/css">
-        #div_ctrl {
-            width: 230px;
-            float: left;
+        div#config {
+            width: 340px;
             background-color: #e4e4e4;
         }
 
-        #div_svg {
-            width: 200px;
+        div#main {
+            width: 100%;
+            background-color: black;
+            padding-left: 1em;
+            float:left;
+            color: green;
+            border: dashed;
+        }
+
+        div#info {
+            width: 240px;
+            background-color: black;
+            padding-left: 1em;
+            color: green;
+            border: dashed;
+        }
+
+        div#stat {
+            width: 240px;
+            background-color: black;
+            padding-left: 1em;
+            color: green;
+            border: dashed;
+        }
+
+        div#svg {
+            width: 600px;
             height: 400px;
             float: left;
             background-color: #e4e4e4;
         }
+
     </style>
 </head>
 
-@using (Ajax.BeginForm(
+<div id="config">
+    @using (Ajax.BeginForm(
     new AjaxOptions
     {
         HttpMethod = "get",
         InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "DataSetID"
+        UpdateTargetId = "info_div"
     }))
-{
-    <fieldset>
-        Select Data Sets:
-        <p>@Html.DropDownList("DataSetLists")</p>
-        <p>@Html.TextBox("fs")</p>
+    {
+        <fieldset>
+            <p>
+                Channel 0: @Html.DropDownList("datalist0")
+                Channel 1: @Html.DropDownList("datalist1")
+            </p>
+            <p>@Html.TextBox("fs")</p>
 
-        <p><input type="submit" value="Update" /></p>
-    </fieldset>
-}
-
-<div id="DataSetID">
-    <p>data: @Model.dataset</p>
-    <p>sampling frequency: @Model.fs</p>
-
+            <p><input type="submit" value="Update" size="5"/></p>
+        </fieldset>
+    }
 </div>
 
-<div id="stat">
-    <p>mean: @Model.mean</p>
-    <p>variance: @Model.rms</p>
-</div>
+<div id="main">
+    <div id="info">
+        <p>channel 0 source: @Model.datafile0</p>
+        <p>channel 1 source: @Model.datafile1</p>
+        <p>sampling frequency: @Model.fs MHz</p>
+    </div>
 
-<div id="div_svg">
-    <svg><polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" /></svg>
-</div>
+    <div id="stat">
+        <table>
+            <tr><td>item</td><td>value</td></tr>
+            <tr><td>mean</td><td>@Model.mean</td></tr>
+            <tr><td>variance</td><td>@Model.rms</td></tr>
+            <tr><td>power</td><td>@Model.pwr</td></tr>
+            <tr><td>peak value</td><td>Model.peak</td></tr>
+            <tr><td>bottom value</td><td>@Model.bottom</td></tr>
+        </table>
+    </div>
 
+    <div id="svg">
+        <svg><polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" /></svg>
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/rfdp_configs")

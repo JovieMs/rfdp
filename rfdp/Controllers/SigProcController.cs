@@ -12,21 +12,32 @@ namespace rfdp.Controllers
         //
         // GET: /SigProc/
 
-        public ActionResult Index(string DataSetLists = null, double fs = 1000)
+        public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000)
         {
-            List<SelectListItem> DataSetList = new List<SelectListItem>();
-            DataSetList.Add(new SelectListItem { Text = "data0.txt", Value = "data0.txt" });
-            DataSetList.Add(new SelectListItem { Text = "data1.txt", Value = "data1.txt" });
-            DataSetList.Add(new SelectListItem { Text = "data2.txt", Value = "data2.txt" });
-            DataSetList.Add(new SelectListItem { Text = "data3.txt", Value = "data3.txt" });
+            List<SelectListItem> DataSetList0 = new List<SelectListItem>();
+            DataSetList0.Add(new SelectListItem { Text = "data0.txt", Value = "data0.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "data1.txt", Value = "data1.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "data2.txt", Value = "data2.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "data3.txt", Value = "data3.txt" });
 
-            ViewBag.DataSetLists = DataSetList;
+            List<SelectListItem> DataSetList1 = new List<SelectListItem>();
+            DataSetList1.Add(new SelectListItem { Text = "data4.txt", Value = "data4.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data5.txt", Value = "data5.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data6.txt", Value = "data6.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data7.txt", Value = "data7.txt" });
+
+            ViewBag.datalist0 = DataSetList0;
+            ViewBag.datalist1 = DataSetList1;
 
             SigProc sig = new SigProc();
-            sig.dataset = DataSetLists;
+            sig.datafile0 = datalist0;
+            sig.datafile1 = datalist1;
             sig.fs = fs;
             sig.mean = 23;
             sig.rms = 110;
+            sig.pwr = 100;
+            sig.peak = 20;
+            sig.bottom = 10;
             return View(sig);
         }
 
