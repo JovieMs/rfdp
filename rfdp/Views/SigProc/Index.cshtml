@@ -1,0 +1,60 @@
+﻿@model rfdp.Models.SigProc
+@{
+    ViewBag.Title = "Index";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <title>RF Tester GUI</title>
+    <style type="text/css">
+        #div_ctrl {
+            width: 230px;
+            float: left;
+            background-color: #e4e4e4;
+        }
+
+        #div_svg {
+            width: 200px;
+            height: 400px;
+            float: left;
+            background-color: #e4e4e4;
+        }
+    </style>
+</head>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "DataSetID"
+    }))
+{
+    <fieldset>
+        Select Data Sets:
+        <p>@Html.DropDownList("DataSetLists")</p>
+        <p>@Html.TextBox("fs")</p>
+
+        <p><input type="submit" value="Update" /></p>
+    </fieldset>
+}
+
+<div id="DataSetID">
+    <p>data: @Model.dataset</p>
+    <p>sampling frequency: @Model.fs</p>
+
+</div>
+
+<div id="stat">
+    <p>mean: @Model.mean</p>
+    <p>variance: @Model.rms</p>
+</div>
+
+<div id="div_svg">
+    <svg><polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" /></svg>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/rfdp_configs")
+}
