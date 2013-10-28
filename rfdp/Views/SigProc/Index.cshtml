@@ -14,27 +14,25 @@
 
         div#main {
             width: 100%;
-            background-color: black;
             padding-left: 1em;
             float:left;
             color: green;
-            border: dashed;
         }
 
         div#info {
             width: 240px;
-            background-color: black;
+            background-color: white;
             padding-left: 1em;
             color: green;
-            border: dashed;
+            border: solid;
         }
 
         div#stat {
-            width: 240px;
-            background-color: black;
+            width: 260px;
+            background-color: white;
             padding-left: 1em;
             color: green;
-            border: dashed;
+            border: solid;
         }
 
         div#svg {
@@ -77,20 +75,26 @@
 
     <div id="stat">
         <table>
-            <tr><td>item</td><td>value</td></tr>
-            <tr><td>mean</td><td>@Model.mean</td></tr>
-            <tr><td>variance</td><td>@Model.rms</td></tr>
-            <tr><td>power</td><td>@Model.pwr</td></tr>
-            <tr><td>peak value</td><td>Model.peak</td></tr>
-            <tr><td>bottom value</td><td>@Model.bottom</td></tr>
+            <tr><td colspan="2" align ="center">Signal Statistics</td></tr>
+            <tr><td>Data Points</td><td>@Model.len</td></tr>
+            <tr><td>Mean</td><td>@Model.duration us</td></tr>
+            <tr><td>Mean</td><td>@Model.mean mV</td></tr>
+            <tr><td>RMS</td><td>@Model.rms</td></tr>
+            <tr><td>Power</td><td>@Model.pwr</td></tr>
+            <tr><td>Max Value</td><td>@Model.max mV</td></tr>
+            <tr><td>Min Value</td><td>@Model.min mV</td></tr>
         </table>
     </div>
 
     <div id="svg">
-        <svg><polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" /></svg>
     </div>
 </div>
 
+<script type="text/javascript">
+    var JSONData = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata)));
+</script>
+
+
 @section Scripts {
-    @Scripts.Render("~/bundles/rfdp_configs")
+    @Scripts.Render("~/bundles/rfdp_js")
 }

@@ -39,8 +39,8 @@ namespace rfdp
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/rfdp_configs").Include(
-                        "~/Scripts/rfdp_configs.js"));
+            bundles.Add(new ScriptBundle("~/bundles/rfdp_js").Include(
+                        "~/Scripts/rfdp/*.js"));
         }
     }
 }

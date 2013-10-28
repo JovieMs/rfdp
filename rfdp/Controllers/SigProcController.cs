@@ -32,12 +32,7 @@ namespace rfdp.Controllers
             SigProc sig = new SigProc();
             sig.datafile0 = datalist0;
             sig.datafile1 = datalist1;
-            sig.fs = fs;
-            sig.mean = 23;
-            sig.rms = 110;
-            sig.pwr = 100;
-            sig.peak = 20;
-            sig.bottom = 10;
+            sig.ProcessStat();
             return View(sig);
         }
 
