@@ -29,11 +29,16 @@ namespace rfdp.Models
 
         private void calc(double data)
         {
+            len++;
             mean += data;
             max = max > data ? max : data;
             min = min < data ? min : data;
             rms += data * data;
             pwr = rms;
+            jasondata = (len == 1) ? "" : jasondata + ", ";
+            Debug.WriteLine(fs * len);
+            jasondata += "{\"x\": " + Convert.ToString(fs * len) + ", \"y\": " + Convert.ToString(data) + "}";
+            
         }
 
         private void update()
@@ -44,6 +49,7 @@ namespace rfdp.Models
                 rms = Math.Sqrt(rms / len);
                 pwr /= len;
                 duration = len / fs;
+                jasondata = "[ " + jasondata + " ]";
             }
         }
 
@@ -56,13 +62,9 @@ namespace rfdp.Models
             min = 0;
             msg = "";
             len = 0;
-            jasondata = "[{ \"x\": 1,   \"y\": 5},  { \"x\": 20,  \"y\": 20}, { \"x\": 40,  \"y\": 10}, { \"x\": 60,  \"y\": 40}, { \"x\": 80,  \"y\": 5},  { \"x\": 100, \"y\": 60}]";
+            jasondata = "";
         }
 
-        private void gen_json()
-        {
-
-        }
 
         public void ProcessStat()
         {
@@ -78,10 +80,8 @@ namespace rfdp.Models
                         if (line == string.Empty) { continue; }
                         double data = Convert.ToDouble(line);
                         calc(data);
-                        len++;
                     }
                     update();
-                    gen_json();
                 }
             }
             catch (Exception e)

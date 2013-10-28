@@ -32,6 +32,7 @@ namespace rfdp.Controllers
             SigProc sig = new SigProc();
             sig.datafile0 = datalist0;
             sig.datafile1 = datalist1;
+            sig.fs = fs;
             sig.ProcessStat();
             return View(sig);
         }
