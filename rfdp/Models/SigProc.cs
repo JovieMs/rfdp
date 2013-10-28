@@ -36,7 +36,6 @@ namespace rfdp.Models
             rms += data * data;
             pwr = rms;
             jasondata = (len == 1) ? "" : jasondata + ", ";
-            Debug.WriteLine(fs * len);
             jasondata += "{\"x\": " + Convert.ToString(fs * len) + ", \"y\": " + Convert.ToString(data) + "}";
             
         }
