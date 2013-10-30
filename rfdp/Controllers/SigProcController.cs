@@ -15,10 +15,10 @@ namespace rfdp.Controllers
         public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000)
         {
             List<SelectListItem> DataSetList0 = new List<SelectListItem>();
-            DataSetList0.Add(new SelectListItem { Text = "data0.txt", Value = "data0.txt" });
-            DataSetList0.Add(new SelectListItem { Text = "data1.txt", Value = "data1.txt" });
-            DataSetList0.Add(new SelectListItem { Text = "data2.txt", Value = "data2.txt" });
-            DataSetList0.Add(new SelectListItem { Text = "data3.txt", Value = "data3.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "sine wave.txt", Value = "data0.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "square wave.txt", Value = "data1.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "eye pattern", Value = "data2.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "scatter plot", Value = "data3.txt" });
 
             List<SelectListItem> DataSetList1 = new List<SelectListItem>();
             DataSetList1.Add(new SelectListItem { Text = "data4.txt", Value = "data4.txt" });

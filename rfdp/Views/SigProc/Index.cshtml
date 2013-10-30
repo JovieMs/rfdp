@@ -7,6 +7,12 @@
     <meta charset="utf-8" />
     <title>RF Tester GUI</title>
     <style type="text/css">
+
+        button {
+            font-size: 10pt;
+            height: 25px; 
+            width: 60px;
+        }
         div#config {
             width: 340px;
             float: left;
@@ -25,16 +31,14 @@
             background-color: white;
             padding-left: 1em;
             color: green;
-            border: solid;
         }
 
         div#stat {
-            width: 300px;
+            width: 340px;
             background-color: white;
             float: left;
             padding-left: 1em;
             color: green;
-            border: solid;
         }
 
         div#svg {
@@ -73,9 +77,8 @@
                 Channel 0: @Html.DropDownList("datalist0")
                 Channel 1: @Html.DropDownList("datalist1")
             </p>
-            <p>@Html.TextBox("fs")</p>
-
-            <p><input type="submit" value="Update" size="5" /></p>
+            @Html.TextBox("fs", 100, new { size = "5" })
+            <button type="submit" >Update</button>
         </fieldset>
     }
 </div>
