@@ -73,13 +73,18 @@
     }))
     {
         <fieldset>
-            <p>
-                Channel 0: @Html.DropDownList("datalist0")
-                Channel 1: @Html.DropDownList("datalist1")
-            </p>
-            @Html.TextBox("fs", 100, new { size = "5" })
-            <button type="submit" >Update</button>
+            <legend >Configurations:</legend>
+            Channel 0: @Html.DropDownList("datalist0") <br />
+            Channel 1: @Html.DropDownList("datalist1") <br />
+            Sampling Frequency: @Html.TextBox("fs", 100, new { size = "5" }) MHz
+            <p></p>
+            @Html.RadioButton("sex", "tdom_anlaysis", true) Time Domain Analysis<br />
+            @Html.RadioButton("sex", "fdom_analysis", false) Frequency Domain Analysis<br />
+            @Html.RadioButton("sex", "eyepat_analysis", false) Eye Diagram<br />
+            @Html.RadioButton("sex", "scatter_analysis", false) Scatter<br />
+            <button type="submit">Update</button><br />
         </fieldset>
+        
     }
 </div>
 

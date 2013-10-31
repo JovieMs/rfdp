@@ -9,7 +9,8 @@ body {
     border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    /*font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;*/
+    font-family: Arial, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -428,15 +429,15 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
-    font-size: 1.2em;
-    margin: 5px 0 6px 0;
-    padding: 5px;
-    width: 300px;
+    font-size: 1.1em;
+    margin: 2px 0 1px 0;
+    padding: 2px;
+    /*width: 300px;*/
 }
 
 textarea {
     font-family: inherit;
-    width: 500px;
+    width: auto;
 }
 
     input:focus, textarea:focus {
@@ -456,8 +457,8 @@ textarea {
         border: 1px solid #787878;
         cursor: pointer;
         font-size: 1.2em;
-        font-weight: 600;
-        padding: 7px;
+        font-weight: 400;
+        padding: 0px;
         margin-right: 8px;
         width: auto;
     }
