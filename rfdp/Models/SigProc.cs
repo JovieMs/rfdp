@@ -9,85 +9,90 @@ namespace rfdp.Models
 {
     public class SigProc
     {
-        public string datafile0 { get; set; }
-        public string datafile1 { get; set; }
+        public string[] datafile { get; set; }
         public double fs { get; set; }
-        public double mean { get; set; }
-        public double rms { get; set; }
-        public double pwr { get; set; }
-        public double max { get; set; }
-        public double min { get; set; }
+        public double[] mean { get; set; }
+        public double[] rms { get; set; }
+        public double[] pwr { get; set; }
+        public double[] max { get; set; }
+        public double[] min { get; set; }
         public string msg { get; set; }
-        public int len { get; set; }
+        public int[] len { get; set; }
         public double duration { get; set; }
-        public string jasondata { get; set; }
+        public string[] jasondata { get; set; }
 
         public SigProc()
         {
             init();
+            datafile = new string[2] { "", "" };
         }
 
-        private void calc(double data)
+        private void calc(int chan, double data)
         {
-            len++;
-            mean += data;
-            max = max > data ? max : data;
-            min = min < data ? min : data;
-            rms += data * data;
-            pwr = rms;
-            jasondata = (len == 1) ? "" : jasondata + ", ";
-            jasondata += "{\"x\": " + Convert.ToString(fs * len) + ", \"y\": " + Convert.ToString(data) + "}";
+            len[chan]++;
+            mean[chan] += data;
+            max[chan] = max[chan] > data ? max[chan] : data;
+            min[chan] = min[chan] < data ? min[chan] : data;
+            rms[chan] += data * data;
+            pwr[chan] = rms[chan];
+            jasondata[chan] = (len[chan] == 1) ? "" : jasondata[chan] + ", ";
+            jasondata[chan] += "{\"x\": " + Convert.ToString(fs * len[chan]) + ", \"y\": " + Convert.ToString(data) + "}";
             
         }
 
-        private void update()
+        private void update(int chan)
         {
-            if (len != 0)
+            if (len[chan] != 0)
             {
-                mean /= len;
-                rms = Math.Sqrt(rms / len);
-                pwr /= len;
-                duration = len / fs;
-                jasondata = "[ " + jasondata + " ]";
+                mean[chan] /= len[chan];
+                rms[chan] = Math.Sqrt(rms[chan] / len[chan]);
+                pwr[chan] /= len[chan];
+                duration = len[chan] / fs;
+                jasondata[chan] = "[ " + jasondata[chan] + " ]";
             }
         }
 
         private void init()
         {
-            mean = 0;
-            rms = 0;
-            pwr = 0;
-            max = 0;
-            min = 0;
+            mean = new double[2] {0, 0};
+            rms = new double[2] { 0, 0 };
+            pwr = new double[2] { 0, 0 };
+            max = new double[2] { 0, 0 };
+            min = new double[2] { 0, 0 };
             msg = "";
-            len = 0;
-            jasondata = "";
+            len = new int[2] {0, 0};
+            jasondata = new string[2] {"", ""};
         }
 
 
         public void ProcessStat()
         {
-            try
+            init();
+            for (int i = 0; i < 2; i++)
             {
-                string appdata = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath, "Data") + "\\" + datafile0;
-                using (StreamReader sr = new StreamReader(appdata))
+                try
                 {
-                    init();
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    string appdata = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath, "Data") + "\\" + datafile[i];
+                    using (StreamReader sr = new StreamReader(appdata))
                     {
-                        if (line == string.Empty) { continue; }
-                        double data = Convert.ToDouble(line);
-                        calc(data);
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line == string.Empty) { continue; }
+                            double data = Convert.ToDouble(line);
+                            calc(i, data);
+                        }
+                        update(i);
                     }
-                    update();
                 }
+                catch (Exception e)
+                {
+                    Debug.Write("The file could not be read:");
+                    Debug.Write(e.Message);
+                }
+                
             }
-            catch (Exception e)
-            {
-                Debug.Write("The file could not be read:");
-                Debug.Write(e.Message);
-            }
+            
 
         }
 

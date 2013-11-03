@@ -21,7 +21,7 @@ namespace rfdp.Controllers
             DataSetList0.Add(new SelectListItem { Text = "scatter plot chan 0", Value = "scatter0.txt" });
 
             List<SelectListItem> DataSetList1 = new List<SelectListItem>();
-            DataSetList1.Add(new SelectListItem { Text = "data4", Value = "data4.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "cos wave", Value = "cos.txt" });
             DataSetList1.Add(new SelectListItem { Text = "data5", Value = "data5.txt" });
             DataSetList1.Add(new SelectListItem { Text = "data6", Value = "data6.txt" });
             DataSetList1.Add(new SelectListItem { Text = "scatter plot chan 1", Value = "scatter1.txt" });
@@ -30,8 +30,8 @@ namespace rfdp.Controllers
             ViewBag.datalist1 = DataSetList1;
 
             SigProc sig = new SigProc();
-            sig.datafile0 = datalist0;
-            sig.datafile1 = datalist1;
+            sig.datafile[0] = datalist0;
+            sig.datafile[1] = datalist1;
             sig.fs = fs;
             sig.ProcessStat();
             return View(sig);
