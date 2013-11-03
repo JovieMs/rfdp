@@ -69,19 +69,21 @@
     {
         HttpMethod = "get",
         InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "info_div"
+        UpdateTargetId = "main"
     }))
     {
         <fieldset>
             <legend >Configurations:</legend>
+            @Html.RadioButton("SelChan", "Single-Channel") Single-Channel
+            @Html.RadioButton("SelChan", "Dual-Channel") Dual-Channel<p></p>
             Channel 0: @Html.DropDownList("datalist0") <br />
             Channel 1: @Html.DropDownList("datalist1") <br />
             Sampling Frequency: @Html.TextBox("fs", 100, new { size = "5" }) MHz
             <p></p>
-            @Html.RadioButton("sex", "tdom_anlaysis", true) Time Domain Analysis<br />
-            @Html.RadioButton("sex", "fdom_analysis", false) Frequency Domain Analysis<br />
-            @Html.RadioButton("sex", "eyepat_analysis", false) Eye Diagram<br />
-            @Html.RadioButton("sex", "scatter_analysis", false) Scatter<br />
+            @Html.RadioButton("SelPanel", "tdom_anlaysis", true) Time Domain Analysis<br />
+            @Html.RadioButton("SelPanel", "fdom_analysis", false) Frequency Domain Analysis<br />
+            @Html.RadioButton("SelPanel", "eyepat_analysis", false) Eye Diagram<br />
+            @Html.RadioButton("SelPanel", "scatter_analysis", false) Scatter<br />
             <button type="submit">Update</button><br />
         </fieldset>
         

@@ -15,16 +15,16 @@ namespace rfdp.Controllers
         public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000)
         {
             List<SelectListItem> DataSetList0 = new List<SelectListItem>();
-            DataSetList0.Add(new SelectListItem { Text = "sine wave.txt", Value = "data0.txt" });
-            DataSetList0.Add(new SelectListItem { Text = "square wave.txt", Value = "data1.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "sine wave", Value = "sin.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "square wave", Value = "data1.txt" });
             DataSetList0.Add(new SelectListItem { Text = "eye pattern", Value = "data2.txt" });
-            DataSetList0.Add(new SelectListItem { Text = "scatter plot", Value = "data3.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "scatter plot chan 0", Value = "scatter0.txt" });
 
             List<SelectListItem> DataSetList1 = new List<SelectListItem>();
-            DataSetList1.Add(new SelectListItem { Text = "data4.txt", Value = "data4.txt" });
-            DataSetList1.Add(new SelectListItem { Text = "data5.txt", Value = "data5.txt" });
-            DataSetList1.Add(new SelectListItem { Text = "data6.txt", Value = "data6.txt" });
-            DataSetList1.Add(new SelectListItem { Text = "data7.txt", Value = "data7.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data4", Value = "data4.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data5", Value = "data5.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "data6", Value = "data6.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "scatter plot chan 1", Value = "scatter1.txt" });
 
             ViewBag.datalist0 = DataSetList0;
             ViewBag.datalist1 = DataSetList1;

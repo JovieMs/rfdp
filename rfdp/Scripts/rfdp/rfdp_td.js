@@ -43,7 +43,7 @@
     var yAxis = d3.svg.axis()
         .scale(linearScaleY)
         .orient("left");
-    
+
     var xAxisGroup = svgContainer.append("g")
         .attr("transform", "translate(0," + (height - padding) + ")")
         .attr("class", "axis")
@@ -55,3 +55,17 @@
         .call(yAxis);
 
 })();
+
+$(document).ready(function () {
+    $("form input:radio[name=SelChan]").click(function ()
+    {
+        if ($("form input:radio[name=SelChan]:checked").val() == "Single-Channel") {
+            $("#datalist1").attr("disabled", true);
+            $("form input:radio[name=SelPanel][value=scatter_analysis]").attr("disabled", true);
+        } else {
+            $("#datalist1").attr("disabled", false);
+            $("form input:radio[name=SelPanel][value=scatter_analysis]").attr("disabled", false);
+        }
+    });
+});
+
