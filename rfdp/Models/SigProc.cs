@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -20,6 +21,7 @@ namespace rfdp.Models
         public int[] len { get; set; }
         public double duration { get; set; }
         public string[] jasondata { get; set; }
+        public List<SigData> sig;
 
         public SigProc()
         {
@@ -29,15 +31,22 @@ namespace rfdp.Models
 
         private void calc(int chan, double data)
         {
-            len[chan]++;
             mean[chan] += data;
             max[chan] = max[chan] > data ? max[chan] : data;
             min[chan] = min[chan] < data ? min[chan] : data;
             rms[chan] += data * data;
             pwr[chan] = rms[chan];
-            jasondata[chan] = (len[chan] == 1) ? "" : jasondata[chan] + ", ";
+            jasondata[chan] = (len[chan] == 0) ? "" : jasondata[chan] + ", ";
             jasondata[chan] += "{\"x\": " + Convert.ToString(fs * len[chan]) + ", \"y\": " + Convert.ToString(data) + "}";
-            
+            if (chan == 0)
+            {
+                sig.Add(new SigData { x = data, y = 0 });
+            } 
+            else 
+            {
+                sig[len[chan]].y = data;
+            }
+            len[chan]++;
         }
 
         private void update(int chan)
@@ -50,7 +59,9 @@ namespace rfdp.Models
                 duration = len[chan] / fs;
                 jasondata[chan] = "[ " + jasondata[chan] + " ]";
             }
+            jasondata[2] = JsonConvert.SerializeObject(sig);
         }
+
 
         private void init()
         {
@@ -61,7 +72,8 @@ namespace rfdp.Models
             min = new double[2] { 0, 0 };
             msg = "";
             len = new int[2] {0, 0};
-            jasondata = new string[2] {"", ""};
+            jasondata = new string[3] {"", "", ""};
+            sig = new List<SigData>();
         }
 
 
