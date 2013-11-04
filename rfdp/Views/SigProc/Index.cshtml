@@ -7,7 +7,6 @@
     <meta charset="utf-8" />
     <title>RF Tester GUI</title>
     <style type="text/css">
-
         button {
             font-size: 10pt;
             height: 25px; 
@@ -15,6 +14,7 @@
         }
         div#config {
             width: 340px;
+            height:inherit;
             float: left;
             background-color: #e4e4e4;
         }
@@ -22,26 +22,24 @@
         div#main {
             width: 100%;
             padding-left: 1em;
-            float: left;
-            color: green;
-        }
-
-        div#info {
-            width: 240px;
-            background-color: white;
-            padding-left: 1em;
-            color: green;
+            color: black;
         }
 
         div#stat {
-            width: 340px;
-            background-color: white;
+            width: 540px;
             float: left;
             padding-left: 1em;
-            color: green;
+            background-color: #e4e4e4;
         }
 
-        div#svg {
+        div#svg_chan {
+            width: 600px;
+            height: 400px;
+            float: left;
+            background-color: #e4e4e4;
+        }
+
+        div#svg_plan {
             width: 600px;
             height: 400px;
             float: left;
@@ -59,7 +57,9 @@
             font-family: sans-serif;
             font-size: 11px;
         }
-
+        table, td, th {
+            border:1px solid;
+        }
     </style>
 </head>
 
@@ -91,23 +91,18 @@
 </div>
 
 <div id="main">
-    <div id="info">
-        <p>channel 0 source: @Model.datafile[0]</p>
-        <p>channel 1 source: @Model.datafile[1]</p>
-        <p></p>
-    </div>
-
     <div id="stat">
-        <table>
-            <tr><td colspan="2" align="center">Signal Statistics</td></tr>
-            <tr><td>Data Points</td><td>@Model.len</td></tr>
-            <tr><td>Duration</td><td>@Model.duration us</td></tr>
-            <tr><td>sampling frequency</td><td>@Model.fs MHz</td></tr>
-            <tr><td>Mean</td><td>@Model.mean[0] mV</td></tr>
-            <tr><td>RMS</td><td>@Model.rms[0]</td></tr>
-            <tr><td>Power</td><td>@Model.pwr[0]</td></tr>
-            <tr><td>Max Value</td><td>@Model.max[0] mV</td></tr>
-            <tr><td>Min Value</td><td>@Model.min[0] mV</td></tr>
+        <table border="1">
+            <tr><td colspan="3">Signal Statistics</td></tr>
+            <tr><td></td><td>@Model.datafile[0]</td><td>@Model.datafile[1]</td></tr>
+            <tr><td>Data Points</td><td>@Model.len[0]</td><td>@Model.len[1]</td></tr>
+            <tr><td>Duration (uS)</td><td colspan="2">@Model.duration</td></tr>
+            <tr><td>sampling frequency (MHz)</td><td colspan="2">@Model.fs</td></tr>
+            <tr><td>Mean (mV)</td><td>@Model.mean[0]</td><td>@Model.mean[1]</td></tr>
+            <tr><td>RMS </td><td>@Model.rms[0]</td><td>@Model.rms[1]</td></tr>
+            <tr><td>Power</td><td>@Model.pwr[0]</td><td>@Model.pwr[1]</td></tr>
+            <tr><td>Max Value (mV)</td><td>@Model.max[0]</td><td>@Model.max[1]</td></tr>
+            <tr><td>Min Value (mV)</td><td>@Model.min[0]</td><td>@Model.min[1]</td></tr>
         </table>
     </div>
 
