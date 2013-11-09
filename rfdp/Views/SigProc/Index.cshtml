@@ -57,8 +57,16 @@
             font-family: sans-serif;
             font-size: 11px;
         }
+        .legend rect {
+            fill: white;
+            stroke: black;
+            opacity: 0.8;
+        }
         table, td, th {
             border:1px solid;
+        }
+        th {
+            text-align: center;
         }
     </style>
 </head>
@@ -93,7 +101,7 @@
 <div id="main">
     <div id="stat">
         <table border="1">
-            <tr><td colspan="3">Signal Statistics</td></tr>
+            <tr><th colspan="3">Signal Statistics</th></tr>
             <tr><td></td><td>@Model.datafile[0]</td><td>@Model.datafile[1]</td></tr>
             <tr><td>Data Points</td><td>@Model.len[0]</td><td>@Model.len[1]</td></tr>
             <tr><td>Duration (uS)</td><td colspan="2">@Model.duration</td></tr>
@@ -120,5 +128,6 @@
 
 
 @section Scripts {
+    @Scripts.Render("~/bundles/d3_js")
     @Scripts.Render("~/bundles/rfdp_js")
 }

@@ -47,12 +47,14 @@ function draw_chan_svg () {
 
     var lineGraph_ch0 = svgContainer.append("path")
         .attr("d", lineFunction(data_ch0))
+        .attr("data-legend", "channel 0")
         .attr("stroke", "blue")
         .attr("stroke-width", 1)
         .attr("fill", "none");
 
     var lineGraph_ch1 = svgContainer.append("path")
         .attr("d", lineFunction(data_ch1))
+        .attr("data-legend", "channel 1")
         .attr("stroke", "red")
         .attr("stroke-width", 1)
         .attr("fill", "none");
@@ -74,6 +76,20 @@ function draw_chan_svg () {
         .attr("transform", "translate(" + padding + ",0)")
         .attr("class", "axis")
         .call(yAxis);
+
+    svgContainer.append("svg:text")
+        .attr("class", "title")
+	    .attr("x", 20)
+	    .attr("y", 20)
+	    .text("Time-Domain Analyzer");
+
+    
+    var legend = svgContainer.append("g")
+       .attr("class", "legend")
+       .attr("transform", "translate(" + (width - 80) + ", 20)")
+       .style("font-size", "12px")
+       .call(d3.legend);
+
 }
 
 function draw_plan_svg () {

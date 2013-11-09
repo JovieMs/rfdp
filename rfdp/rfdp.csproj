@@ -272,6 +272,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\rfdp\rfdp_legend.js" />
     <Content Include="Scripts\rfdp\d3.v3.js" />
     <Content Include="Scripts\rfdp\d3.v3.min.js" />
     <Content Include="Scripts\rfdp\rfdp_td.js" />
