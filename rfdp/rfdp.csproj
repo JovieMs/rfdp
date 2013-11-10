@@ -194,6 +194,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\nv.d3.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -272,6 +273,16 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\nvd3\axis.js" />
+    <Content Include="Scripts\nvd3\interactiveLayer.js" />
+    <Content Include="Scripts\nvd3\legend.js" />
+    <Content Include="Scripts\nvd3\line.js" />
+    <Content Include="Scripts\nvd3\lineChart.js" />
+    <Content Include="Scripts\nvd3\nv.d3.js" />
+    <Content Include="Scripts\nvd3\scatter.js" />
+    <Content Include="Scripts\nvd3\scatterChart.js" />
+    <Content Include="Scripts\nvd3\tooltip.js" />
+    <Content Include="Scripts\nvd3\utils.js" />
     <Content Include="Scripts\rfdp\rfdp_legend.js" />
     <Content Include="Scripts\rfdp\d3.v3.js" />
     <Content Include="Scripts\rfdp\d3.v3.min.js" />

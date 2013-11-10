@@ -23,7 +23,9 @@ namespace rfdp
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/nv.d3.css",
+                        "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -39,8 +41,16 @@ namespace rfdp
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/nv.d3.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/d3_js").Include(
                         "~/Scripts/rfdp/d3*"));
+            bundles.Add(new ScriptBundle("~/bundles/nvd3_js").Include(
+                        "~/Scripts/nvd3/nv.d3.js",
+                        "~/Scripts/nvd3/tooltip.js",
+                        "~/Scripts/nvd3/interactiveLayer.js",
+                        "~/Scripts/nvd3/*.js"
+                        ));
             bundles.Add(new ScriptBundle("~/bundles/rfdp_js").Include(
                         "~/Scripts/rfdp/rfdp_*"));
         }
