@@ -40,9 +40,9 @@ namespace rfdp
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/d3_js").Include(
-                        "~/Scripts/rfdp/d3*.js"));
+                        "~/Scripts/rfdp/d3*"));
             bundles.Add(new ScriptBundle("~/bundles/rfdp_js").Include(
-                        "~/Scripts/rfdp/rfdp_*.js"));
+                        "~/Scripts/rfdp/rfdp_*"));
         }
     }
 }
