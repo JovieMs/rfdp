@@ -32,6 +32,13 @@
             background-color: #e4e4e4;
         }
 
+        div#svg {
+            width: 900px;
+            height: 600px;
+            float: left;
+            background-color: #e4e4e4;
+        }
+
         div#svg_chan {
             width: 600px;
             height: 400px;
@@ -82,16 +89,17 @@
     {
         <fieldset>
             <legend >Configurations:</legend>
-            @Html.RadioButton("SelChan", "Single-Channel") Single-Channel
-            @Html.RadioButton("SelChan", "Dual-Channel") Dual-Channel<p></p>
+            @Html.RadioButton("SelChan", 1, true) Single-Channel
+            @Html.RadioButton("SelChan", 2, false) Dual-Channel<p></p>
             Channel 0: @Html.DropDownList("datalist0") <br />
             Channel 1: @Html.DropDownList("datalist1") <br />
             Sampling Frequency: @Html.TextBox("fs", 100, new { size = "5" }) MHz
             <p></p>
-            @Html.RadioButton("SelPanel", "tdom_anlaysis", true) Time Domain Analysis<br />
+            @Html.RadioButton("SelPanel", "tdom_analysis", true) Time Domain Analysis<br />
             @Html.RadioButton("SelPanel", "fdom_analysis", false) Frequency Domain Analysis<br />
             @Html.RadioButton("SelPanel", "eyepat_analysis", false) Eye Diagram<br />
             @Html.RadioButton("SelPanel", "scatter_analysis", false) Scatter<br />
+            @Html.RadioButton("SelPanel", "hist_analysis", false) Histogram<br />
             <button type="submit">Analyze</button><br />
         </fieldset>
         
@@ -114,16 +122,14 @@
         </table>
     </div>
 
-    <div id="svg_chan">
-    </div>
-    <div id="svg_plan">
-    </div>
+    <div id="svg"></div>
 </div>
 
 <script type="text/javascript">
     var JSONData_ch0 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[0])));
     var JSONData_ch1 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[1])));
     var JSONData_plan = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[2])));
+    var mode = String("@Model.mode");
 </script>
 
 

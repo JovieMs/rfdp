@@ -1,12 +1,11 @@
-﻿$(document).ready(function () {
+﻿var width = 900,
+    height = 600,
+    padding = 40;
+
+$(document).ready(function () {
     
-    draw_chan_svg();
-
-    draw_plan_svg();
-
-    $("form input:radio[name=SelChan]").click(function ()
-    {
-        if ($("form input:radio[name=SelChan]:checked").val() == "Single-Channel") {
+    $("form input:radio[name=SelChan]").click(function () {
+        if ($("form input:radio[name=SelChan]:checked").val() == "1") {
             $("#datalist1").attr("disabled", true);
             $("form input:radio[name=SelPanel][value=scatter_analysis]").attr("disabled", true);
         } else {
@@ -14,17 +13,20 @@
             $("form input:radio[name=SelPanel][value=scatter_analysis]").attr("disabled", false);
         }
     });
+
+    if (mode == "tdom_analysis") {
+        draw_chan_svg();
+    } else if (mode == "scatter_analysis") {
+        draw_plan_svg();
+    }
+    
 });
 
 function draw_chan_svg () {
     var data_ch0 = JSONData_ch0.slice();
     var data_ch1 = JSONData_ch1.slice();
 
-    var width = 600,
-        height = 400,
-        padding = 40;
-
-    var svgContainer = d3.select("#svg_chan")
+    var svgContainer = d3.select("#svg")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -95,10 +97,6 @@ function draw_chan_svg () {
 function draw_plan_svg () {
     var data = JSONData_plan.slice();
 
-    var width = 600,
-        height = 400,
-        padding = 40;
-
     var linearScaleX = d3.scale.linear()
         .range([padding, width - padding])
         .domain(d3.extent(data, function (d) { return d.x; }));
@@ -115,7 +113,7 @@ function draw_plan_svg () {
         .scale(linearScaleY)
         .orient("left");
 
-    var svgContainer = d3.select("#svg_plan")
+    var svgContainer = d3.select("#svg")
         .append("svg")
         .attr("width", width)
         .attr("height", height)

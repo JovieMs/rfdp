@@ -21,6 +21,8 @@ namespace rfdp.Models
         public int[] len { get; set; }
         public double duration { get; set; }
         public string[] jasondata { get; set; }
+        public string mode { get; set; }
+        public int chan { get; set; }
         public List<SigData> sig;
 
         public SigProc()
