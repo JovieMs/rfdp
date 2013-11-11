@@ -39,7 +39,7 @@ namespace rfdp.Models
             rms[chan] += data * data;
             pwr[chan] = rms[chan];
             jasondata[chan] = (len[chan] == 0) ? "" : jasondata[chan] + ", ";
-            jasondata[chan] += "{\"x\": " + Convert.ToString(fs * len[chan]) + ", \"y\": " + Convert.ToString(data) + "}";
+            jasondata[chan] += "{\"x\": " + Convert.ToString(len[chan] * 1000 / fs) + ", \"y\": " + Convert.ToString(data) + "}";
             if (chan == 0)
             {
                 sig.Add(new SigData { x = data, y = 0 });

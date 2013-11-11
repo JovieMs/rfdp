@@ -122,13 +122,12 @@
         </table>
     </div>
 
-    <div id="svg"></div>
-    <div id="chart1">
+    <div id="chart">
         <svg style="height: 500px"></svg>
     </div>
 
 </div>
-
+@*  *@
 <script type="text/javascript">
     var JSONData_ch0 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[0])));
     var JSONData_ch1 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[1])));

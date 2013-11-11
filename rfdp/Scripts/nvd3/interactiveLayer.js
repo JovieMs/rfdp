@@ -9,6 +9,7 @@ It also has 'pointXValue', which is the conversion of mouseX to the x-axis scale
 nv.interactiveGuideline = function() {
 	"use strict";
 	var tooltip = nv.models.tooltip();
+	
 	//Public settings
 	var width = null
 	, height = null
@@ -23,7 +24,7 @@ nv.interactiveGuideline = function() {
     //Must pass in the bounding chart's <svg> container.
     //The mousemove event is attached to this container.
 	;
-
+	
 	//Private variables
 	var isMSIE = navigator.userAgent.indexOf("MSIE") !== -1  //Check user-agent for Microsoft Internet Explorer.
 	;
@@ -46,7 +47,7 @@ nv.interactiveGuideline = function() {
 					return;
 				}
 
-                function mouseHandler() {
+				function mouseHandler() {
                       var d3mouse = d3.mouse(this);
                       var mouseX = d3mouse[0];
                       var mouseY = d3mouse[1];

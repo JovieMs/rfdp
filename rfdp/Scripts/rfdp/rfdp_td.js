@@ -3,7 +3,7 @@
     padding = 40;
 
 $(document).ready(function () {
-    
+
     $("form input:radio[name=SelChan]").click(function () {
         if ($("form input:radio[name=SelChan]:checked").val() == "1") {
             $("#datalist1").attr("disabled", true);
@@ -14,21 +14,22 @@ $(document).ready(function () {
         }
     });
 
-    test();
+    
 
     if (mode == "tdom_analysis") {
-        draw_chan_svg();
+        //draw_chan_svg();
+        test();
     } else if (mode == "scatter_analysis") {
         draw_plan_svg();
     }
-    
+
 });
 
-function draw_chan_svg () {
+function draw_chan_svg() {
     var data_ch0 = JSONData_ch0.slice();
     var data_ch1 = JSONData_ch1.slice();
 
-    var svgContainer = d3.select("#svg")
+    var svg = d3.select("#chart svg")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -49,14 +50,14 @@ function draw_chan_svg () {
         .y(function (d) { return linearScaleY(d.y); })
         .interpolate("linear");
 
-    var lineGraph_ch0 = svgContainer.append("path")
+    var lineGraph_ch0 = svg.append("path")
         .attr("d", lineFunction(data_ch0))
         .attr("data-legend", "channel 0")
         .attr("stroke", "blue")
         .attr("stroke-width", 1)
         .attr("fill", "none");
 
-    var lineGraph_ch1 = svgContainer.append("path")
+    var lineGraph_ch1 = svg.append("path")
         .attr("d", lineFunction(data_ch1))
         .attr("data-legend", "channel 1")
         .attr("stroke", "red")
@@ -71,24 +72,24 @@ function draw_chan_svg () {
         .scale(linearScaleY)
         .orient("left");
 
-    var xAxisGroup = svgContainer.append("g")
+    var xAxisGroup = svg.append("g")
         .attr("transform", "translate(0," + (height - padding) + ")")
         .attr("class", "axis")
         .call(xAxis);
 
-    var xAxisGroup = svgContainer.append("g")
+    var xAxisGroup = svg.append("g")
         .attr("transform", "translate(" + padding + ",0)")
         .attr("class", "axis")
         .call(yAxis);
 
-    svgContainer.append("svg:text")
+    svg.append("svg:text")
         .attr("class", "title")
 	    .attr("x", 20)
 	    .attr("y", 20)
 	    .text("Time-Domain Analyzer");
 
-    
-    var legend = svgContainer.append("g")
+
+    var legend = svg.append("g")
        .attr("class", "legend")
        .attr("transform", "translate(" + (width - 80) + ", 20)")
        .style("font-size", "12px")
@@ -96,7 +97,7 @@ function draw_chan_svg () {
 
 }
 
-function draw_plan_svg () {
+function draw_plan_svg() {
     var data = JSONData_plan.slice();
 
     var linearScaleX = d3.scale.linear()
@@ -115,13 +116,13 @@ function draw_plan_svg () {
         .scale(linearScaleY)
         .orient("left");
 
-    var svgContainer = d3.select("#svg")
+    var svg = d3.select("#chart svg")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("border", "1px solid black");
 
-    svgContainer.selectAll(".dot")
+    svg.selectAll(".dot")
       .data(data)
       .enter().append("circle")
       .attr("class", "dot")
@@ -139,12 +140,12 @@ function draw_plan_svg () {
         .scale(linearScaleY)
         .orient("left");
 
-    var xAxisGroup = svgContainer.append("g")
+    var xAxisGroup = svg.append("g")
         .attr("transform", "translate(0," + (height - padding) + ")")
         .attr("class", "axis")
         .call(xAxis);
 
-    var xAxisGroup = svgContainer.append("g")
+    var xAxisGroup = svg.append("g")
         .attr("transform", "translate(" + padding + ",0)")
         .attr("class", "axis")
         .call(yAxis);
@@ -159,21 +160,21 @@ function test() {
             x: function (d, i) { return i },
             showXAxis: true,
             showYAxis: true,
-            transitionDuration: 250
+            transitionDuration: 0
         })
         ;
 
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         chart.xAxis
-          .axisLabel("Time (s)")
-          .tickFormat(d3.format(',.1f'));
+          .axisLabel("Time (ms)")
+          .tickFormat(d3.format(',.4f'));
 
         chart.yAxis
           .axisLabel('Voltage (v)')
           .tickFormat(d3.format(',.2f'))
         ;
 
-        d3.select('#chart1 svg')
+        d3.select('#chart svg')
           .datum(sinAndCos())
           .call(chart);
 
@@ -187,42 +188,28 @@ function test() {
     });
 
     function sinAndCos() {
+        var data_ch0 = JSONData_ch0.slice();
+        var data_ch1 = JSONData_ch1.slice();
         var sin = [],
-          cos = [],
-          rand = [],
-          rand2 = []
+          cos = []
         ;
 
-        for (var i = 0; i < 100; i++) {
-            sin.push({ x: i, y: i % 10 == 5 ? null : Math.sin(i / 10) }); //the nulls are to show how defined works
-            cos.push({ x: i, y: .5 * Math.cos(i / 10) });
-            rand.push({ x: i, y: Math.random() / 10 });
-            rand2.push({ x: i, y: Math.cos(i / 10) + Math.random() / 10 })
+        for (var i = 0; i < 400; i++) {
+            sin.push({ x: data_ch0[i].x, y: data_ch0[i].y });
+            cos.push({ x: data_ch1[i].x, y: data_ch1[i].y });
         }
 
         return [
           {
-              area: true,
               values: sin,
-              key: "Sine Wave",
-              color: "#ff7f0e"
+              key: "Channel 0",
+              color: "blue"
           },
-          {
-              values: cos,
-              key: "Cosine Wave",
-              color: "#2ca02c"
-          },
-          {
-              values: rand,
-              key: "Random Points",
-              color: "#2222ff"
-          }
-          ,
-          {
-              values: rand2,
-              key: "Random Cosine",
-              color: "#667711"
-          }
+        {
+            values: cos,
+            key: "Channel 1",
+            color: "red"
+        }
         ];
     }
 }

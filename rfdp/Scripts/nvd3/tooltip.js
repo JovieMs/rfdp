@@ -345,6 +345,7 @@ window.nv.tooltip.* also has various helper methods.
            pos[0] = pos[0] - parentContainer.scrollLeft;
            pos[1] = pos[1] - parentContainer.scrollTop;
         }
+        
         nv.tooltip.calcTooltipPosition(pos, gravity, dist, container);
   };
 
@@ -411,6 +412,7 @@ window.nv.tooltip.* also has various helper methods.
                 return nv.tooltip.findTotalOffsetLeft(Elem,left);
             };
 
+            pos[1] += 250;
             switch (gravity) {
               case 'e':
                 left = pos[0] - width - dist;
