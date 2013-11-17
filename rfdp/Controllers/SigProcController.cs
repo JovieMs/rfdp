@@ -12,7 +12,7 @@ namespace rfdp.Controllers
         //
         // GET: /SigProc/
 
-        public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000, int SelChan = 1, string SelPanel = "tdom_anlaysis")
+        public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000, int SelChan = 1, string SelPanel = "TimeDomain")
         {
             List<SelectListItem> DataSetList0 = new List<SelectListItem>();
             DataSetList0.Add(new SelectListItem { Text = "sine wave", Value = "sin.txt" });
@@ -34,7 +34,8 @@ namespace rfdp.Controllers
             sig.datafile[1] = datalist1;
             sig.fs = fs;
             sig.ProcessStat();
-            sig.mode = SelPanel;
+            sig.analysisMode = (AnalysisMode) Enum.Parse(typeof(AnalysisMode), SelPanel);
+            sig.channelMode = (ChannelMode) SelChan;
             sig.chan = SelChan;
             return View(sig);
         }

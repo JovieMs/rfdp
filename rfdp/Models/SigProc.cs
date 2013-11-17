@@ -8,6 +8,9 @@ using System.Web;
 
 namespace rfdp.Models
 {
+    public enum AnalysisMode { TimeDomain, FrequencyDomain, Scatter, Histogram, EyePattern };
+    public enum ChannelMode { Single = 1, Dual };
+
     public class SigProc
     {
         public string[] datafile { get; set; }
@@ -21,9 +24,15 @@ namespace rfdp.Models
         public int[] len { get; set; }
         public double duration { get; set; }
         public string[] jasondata { get; set; }
-        public string mode { get; set; }
+        public AnalysisMode analysisMode { get; set; }
+        public ChannelMode channelMode { get; set; }
         public int chan { get; set; }
+        public int bin_no { get; set; }
+        public int[] x_bins { get; set; }
+        public int[] y_bins { get; set; }
         public List<SigData> sig;
+
+
 
         public SigProc()
         {
@@ -76,6 +85,7 @@ namespace rfdp.Models
             len = new int[2] {0, 0};
             jasondata = new string[3] {"", "", ""};
             sig = new List<SigData>();
+            bin_no = 10;
         }
 
 
@@ -106,8 +116,51 @@ namespace rfdp.Models
                 }
                 
             }
-            
 
+            if (analysisMode == AnalysisMode.Histogram)
+            {
+                ProcessHist();
+                Debug.WriteLine("histogram");
+            }
+                
+        }
+        public void ProcessHist()
+        {
+            x_bins = new int[bin_no];
+            y_bins = new int[bin_no];
+            double x_min = this.min[0];
+            double y_min = this.min[1];
+            double x_max = this.max[0];
+            double y_max = this.max[1];
+            double x_step = (x_max - x_min) / bin_no;
+            double y_step = (y_max - y_min) / bin_no;
+
+            for (int i = 0; i < bin_no; i++)
+            {
+                x_bins[i] = 0;
+                y_bins[i] = 0;
+            }
+
+            foreach (SigData d in sig)
+            {
+                for (int i = 1; i <= bin_no; i++)
+                {
+                    if (d.x <= x_min + x_step * i)
+                    {
+                        x_bins[i-1]++;
+                        break;
+                    }
+                }
+
+                for (int i = 1; i <= bin_no; i++)
+                {
+                    if (d.y <= y_min + y_step * i)
+                    {
+                        y_bins[i-1]++;
+                        break;
+                    }
+                }
+            }
         }
 
     }

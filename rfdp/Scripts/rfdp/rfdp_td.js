@@ -16,10 +16,10 @@ $(document).ready(function () {
 
     
 
-    if (mode == "tdom_analysis") {
+    if (mode == "TimeDomain") {
         //draw_chan_svg();
         test();
-    } else if (mode == "scatter_analysis") {
+    } else if (mode == "Scatter") {
         draw_plan_svg();
     }
 

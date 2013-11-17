@@ -95,11 +95,11 @@
             Channel 1: @Html.DropDownList("datalist1") <br />
             Sampling Frequency: @Html.TextBox("fs", 100, new { size = "5" }) MHz
             <p></p>
-            @Html.RadioButton("SelPanel", "tdom_analysis", true) Time Domain Analysis<br />
-            @Html.RadioButton("SelPanel", "fdom_analysis", false) Frequency Domain Analysis<br />
-            @Html.RadioButton("SelPanel", "eyepat_analysis", false) Eye Diagram<br />
-            @Html.RadioButton("SelPanel", "scatter_analysis", false) Scatter<br />
-            @Html.RadioButton("SelPanel", "hist_analysis", false) Histogram<br />
+            @Html.RadioButton("SelPanel", "TimeDomain", true) Time Domain Analysis<br />
+            @Html.RadioButton("SelPanel", "FrequencyDomain", false) Frequency Domain Analysis<br />
+            @Html.RadioButton("SelPanel", "EyePattern", false) Eye Diagram<br />
+            @Html.RadioButton("SelPanel", "Scatter", false) Scatter<br />
+            @Html.RadioButton("SelPanel", "Histogram", false) Histogram<br />
             <button type="submit">Analyze</button><br />
         </fieldset>
         
@@ -132,7 +132,7 @@
     var JSONData_ch0 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[0])));
     var JSONData_ch1 = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[1])));
     var JSONData_plan = JSON.parse(@Html.Raw(Json.Encode(@Model.jasondata[2])));
-    var mode = String("@Model.mode");
+    var mode = String("@Model.analysisMode");
 </script>
 
 
