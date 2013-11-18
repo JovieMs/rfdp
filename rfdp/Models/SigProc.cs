@@ -83,9 +83,9 @@ namespace rfdp.Models
             min = new double[2] { 0, 0 };
             msg = "";
             len = new int[2] {0, 0};
-            jasondata = new string[3] {"", "", ""};
+            jasondata = new string[4] {"", "", "", ""};
             sig = new List<SigData>();
-            bin_no = 10;
+            bin_no = 20;
         }
 
 
@@ -120,7 +120,6 @@ namespace rfdp.Models
             if (analysisMode == AnalysisMode.Histogram)
             {
                 ProcessHist();
-                Debug.WriteLine("histogram");
             }
                 
         }
@@ -161,6 +160,13 @@ namespace rfdp.Models
                     }
                 }
             }
+            jasondata[3] = "[{\"values\": [";
+            for (int i = 0; i < bin_no-1; i++)
+            {
+                jasondata[3] += "{\"label\":" + (x_min +x_step*i).ToString("F2") + ", \"value\":" + x_bins[i].ToString("F0") + "},";
+            }
+            jasondata[3] += "{\"label\":" + (x_min + x_step * (bin_no - 1)).ToString("F2") + ", \"value\":" + x_bins[bin_no - 1].ToString("F0") + "}";
+            jasondata[3] += "]}]";
         }
 
     }

@@ -33,10 +33,10 @@ namespace rfdp.Controllers
             sig.datafile[0] = datalist0;
             sig.datafile[1] = datalist1;
             sig.fs = fs;
-            sig.ProcessStat();
             sig.analysisMode = (AnalysisMode) Enum.Parse(typeof(AnalysisMode), SelPanel);
             sig.channelMode = (ChannelMode) SelChan;
             sig.chan = SelChan;
+            sig.ProcessStat();
             return View(sig);
         }
 

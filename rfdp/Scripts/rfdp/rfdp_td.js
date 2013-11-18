@@ -14,13 +14,15 @@ $(document).ready(function () {
         }
     });
 
-    
+
 
     if (mode == "TimeDomain") {
         //draw_chan_svg();
-        test();
+        plot_time_domain();
     } else if (mode == "Scatter") {
-        draw_plan_svg();
+        plot_scatter();
+    } else if (mode == "Histogram") {
+        plot_histogram();
     }
 
 });
@@ -97,7 +99,7 @@ function draw_chan_svg() {
 
 }
 
-function draw_plan_svg() {
+function plog_scatter() {
     var data = JSONData_plan.slice();
 
     var linearScaleX = d3.scale.linear()
@@ -152,7 +154,7 @@ function draw_plan_svg() {
 }
 
 
-function test() {
+function plot_time_domain() {
     nv.addGraph(function () {
         chart = nv.models.lineChart()
         .options({
@@ -211,5 +213,31 @@ function test() {
             color: "red"
         }
         ];
+    }
+}
+
+function plot_histogram() {
+    nv.addGraph(function () {
+        var chart = nv.models.discreteBarChart()
+               .x(function (d) { return d.label })
+               .y(function (d) { return d.value })
+               .staggerLabels(true)
+               .tooltips(false)
+               .showValues(true)
+
+        d3.select('#chart svg')
+            .datum(exampleData())
+          .transition().duration(500)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+
+
+    function exampleData() {
+        var data_hist = JSONData_hist.slice();
+        return data_hist;
     }
 }
