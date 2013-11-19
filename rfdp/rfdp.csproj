@@ -253,6 +253,8 @@
     <Content Include="Data\scatter0.txt" />
     <Content Include="Data\scatter1.txt" />
     <Content Include="Data\sin.txt" />
+    <Content Include="Data\square_wave.txt" />
+    <Content Include="Data\square_wave_lp.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\rfdp.pubxml">

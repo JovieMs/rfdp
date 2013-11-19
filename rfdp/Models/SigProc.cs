@@ -83,7 +83,7 @@ namespace rfdp.Models
             min = new double[2] { 0, 0 };
             msg = "";
             len = new int[2] {0, 0};
-            jasondata = new string[4] {"", "", "", ""};
+            jasondata = new string[4] { "[]", "[]", "[]", "[]" };
             sig = new List<SigData>();
             bin_no = 20;
         }

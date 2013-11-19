@@ -99,7 +99,7 @@ function draw_chan_svg() {
 
 }
 
-function plog_scatter() {
+function plot_scatter() {
     var data = JSONData_plan.slice();
 
     var linearScaleX = d3.scale.linear()
@@ -195,8 +195,9 @@ function plot_time_domain() {
         var sin = [],
           cos = []
         ;
-
-        for (var i = 0; i < 400; i++) {
+        
+        var len = Object.keys(data_ch0).length > Object.keys(data_ch1).length ? Object.keys(data_ch1).length : Object.keys(data_ch0).length;
+        for (var i = 0; i < len; i++) {
             sin.push({ x: data_ch0[i].x, y: data_ch0[i].y });
             cos.push({ x: data_ch1[i].x, y: data_ch1[i].y });
         }
