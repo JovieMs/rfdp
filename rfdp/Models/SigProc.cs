@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
+
 namespace rfdp.Models
 {
     public enum AnalysisMode { TimeDomain, FrequencyDomain, Scatter, Histogram, EyePattern };
@@ -31,6 +32,9 @@ namespace rfdp.Models
         public int[] x_bins { get; set; }
         public int[] y_bins { get; set; }
         public List<SigData> sig;
+        
+        private double[] x;
+        private double[] y;
 
 
 
@@ -71,6 +75,10 @@ namespace rfdp.Models
                 jasondata[chan] = "[ " + jasondata[chan] + " ]";
             }
             jasondata[2] = JsonConvert.SerializeObject(sig);
+            if (chan == 1)
+            {
+                ProcessFFT();
+            }
         }
 
 
@@ -83,7 +91,7 @@ namespace rfdp.Models
             min = new double[2] { 0, 0 };
             msg = "";
             len = new int[2] {0, 0};
-            jasondata = new string[4] { "[]", "[]", "[]", "[]" };
+            jasondata = new string[6] { "[]", "[]", "[]", "[]", "[]", "[]" };
             sig = new List<SigData>();
             bin_no = 20;
         }
@@ -116,10 +124,12 @@ namespace rfdp.Models
                 }
                 
             }
+            
 
             if (analysisMode == AnalysisMode.Histogram)
             {
                 ProcessHist();
+                ProcessFFT();
             }
                 
         }
@@ -169,6 +179,36 @@ namespace rfdp.Models
             jasondata[3] += "]}]";
         }
 
+        private void ProcessFFT()
+        {
+            x = new double[len[0]];
+            int i = 0;
+            foreach (SigData d in sig)
+            {
+                x[i] = d.x;
+                i++;
+            }
+
+            alglib.complex[] f;
+            alglib.fftr1d(x, out f);
+            double tmp;
+            jasondata[4] = "";
+            foreach (alglib.complex item in f)
+            {
+                tmp = alglib.math.abscomplex(item);
+                if (jasondata[4] == "")
+                {
+                    jasondata[4] += "{\"x\": " + Convert.ToString(len[0] * 1000 / fs) + ", \"y\": " + Convert.ToString(tmp) + "}";
+
+                }
+                else
+                {
+                    jasondata[4] += ",{\"x\": " + Convert.ToString(len[0] * 1000 / fs) + ", \"y\": " + Convert.ToString(tmp) + "}";
+                }
+                
+            }
+            jasondata[4] = "[" + jasondata[4] + "]";
+        }
     }
 
 

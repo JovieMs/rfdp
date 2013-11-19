@@ -218,6 +218,7 @@ function plot_time_domain() {
 }
 
 function plot_histogram() {
+    var data_hist = JSONData_hist.slice();
     nv.addGraph(function () {
         var chart = nv.models.discreteBarChart()
                .x(function (d) { return d.label })
@@ -227,7 +228,7 @@ function plot_histogram() {
                .showValues(true)
 
         d3.select('#chart svg')
-            .datum(exampleData())
+            .datum(data_hist)
           .transition().duration(500)
             .call(chart);
 
@@ -236,9 +237,4 @@ function plot_histogram() {
         return chart;
     });
 
-
-    function exampleData() {
-        var data_hist = JSONData_hist.slice();
-        return data_hist;
-    }
 }
