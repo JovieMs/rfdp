@@ -128,7 +128,7 @@ namespace rfdp.Models
             }
             else if (analysisMode == AnalysisMode.FrequencyDomain)
             {
-                JsonData[4] = Signal[ActiveChan].ConvertSpectrumBinToJson();
+                JsonData[4] = Signal[ActiveChan].ConvertSpectrumToJson();
             }
         }
 

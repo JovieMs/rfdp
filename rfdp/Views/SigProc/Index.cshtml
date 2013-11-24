@@ -104,11 +104,11 @@
             @Html.RadioButton("SelPanel", "Scatter", false) Scatter<br />
             @Html.RadioButton("SelPanel", "Histogram", false) Histogram<br />
 
-            <div id="rb_active_chan">
+            <div id="rb_active_chan" style="visibility:hidden">
                 Target:<br />
                 @Html.RadioButton("activeChan", 0, true) active channel 0
-                @Html.RadioButton("activeChan", 1, false) active channel 1
-            </div>
+                        @Html.RadioButton("activeChan", 1, false) active channel 1
+                            </div>
             <button type="submit">Analyze</button><br />
         </fieldset>
 

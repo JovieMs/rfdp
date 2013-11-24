@@ -68,7 +68,7 @@ namespace rfdp.Models
 
         public void DoFFT()
         {
-            alglib.fftr1d(Data, out ComplexSpectrum, 128);
+            alglib.fftr1d(Data, out ComplexSpectrum, 1024);
         }
 
         public void DoHistogram()
@@ -174,12 +174,12 @@ namespace rfdp.Models
                     tmp = alglib.math.abscomplex(ComplexSpectrum[i]);
                     if (json == "")
                     {
-                        json = "{\"x\": " + Convert.ToString(freq_interval * i) + ", \"y\": " + Convert.ToString(tmp) + "}";
+                        json = "{\"x\": " + (freq_interval * i).ToString("F2") + ", \"y\": " + tmp.ToString("F2") + "}";
 
                     }
                     else
                     {
-                        json += ",{\"x\": " + Convert.ToString(freq_interval * i) + ", \"y\": " + Convert.ToString(tmp) + "}";
+                        json += ",{\"x\": " + (freq_interval * i).ToString("F2") + ", \"y\": " + tmp.ToString("F2") + "}";
                     }
                 }
                 json = "[" + json + "]";

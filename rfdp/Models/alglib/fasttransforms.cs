@@ -142,7 +142,7 @@ public partial class alglib
 
         f = new complex[0];
         //n = ap.len(a);
-        fft.fftr1d(a, n, ref f);
+        fft.fftr1d(a, Math.Min(ap.len(a),n), ref f);
 
         return;
     }
