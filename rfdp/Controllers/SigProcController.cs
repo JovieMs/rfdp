@@ -12,7 +12,7 @@ namespace rfdp.Controllers
         //
         // GET: /SigProc/
 
-        public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000, int SelChan = 1, string SelPanel = "TimeDomain")
+        public ActionResult Index(string datalist0 = null, string datalist1 = null, double fs = 1000, int SelChan = 1, string SelPanel = "TimeDomain", int activeChan = 0)
         {
             List<SelectListItem> DataSetList0 = new List<SelectListItem>();
             DataSetList0.Add(new SelectListItem { Text = "sine wave", Value = "sin.txt" });
@@ -29,15 +29,16 @@ namespace rfdp.Controllers
             ViewBag.datalist0 = DataSetList0;
             ViewBag.datalist1 = DataSetList1;
 
-            SigProc sig = new SigProc();
-            sig.datafile[0] = datalist0;
-            sig.datafile[1] = datalist1;
-            sig.fs = fs;
-            sig.analysisMode = (AnalysisMode) Enum.Parse(typeof(AnalysisMode), SelPanel);
-            sig.channelMode = (ChannelMode) SelChan;
-            sig.chan = SelChan;
-            sig.ProcessStat();
-            return View(sig);
+            SigProc SigProcEngine = new SigProc();
+            SigProcEngine.DataFile[0] = datalist0;
+            SigProcEngine.DataFile[1] = datalist1;
+            SigProcEngine.SamplingFrequency = fs;
+            SigProcEngine.analysisMode = (AnalysisMode) Enum.Parse(typeof(AnalysisMode), SelPanel);
+            SigProcEngine.channelMode = (ChannelMode) SelChan;
+            SigProcEngine.ActiveChan = activeChan;
+            SigProcEngine.ProcessStat();
+            SigProcEngine.ReturnStat();
+            return View(SigProcEngine);
         }
 
     }

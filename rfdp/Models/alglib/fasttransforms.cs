@@ -136,12 +136,12 @@ public partial class alglib
         fft.fftr1d(a, n, ref f);
         return;
     }
-    public static void fftr1d(double[] a, out complex[] f)
+    public static void fftr1d(double[] a, out complex[] f, int n)
     {
-        int n;
+        //int n;
 
         f = new complex[0];
-        n = ap.len(a);
+        //n = ap.len(a);
         fft.fftr1d(a, n, ref f);
 
         return;

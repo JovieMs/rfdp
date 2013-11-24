@@ -14,93 +14,29 @@ $(document).ready(function () {
         }
     });
 
-
+    $("form input:radio[name=SelPanel]").click(function () {
+        if ($("form input:radio[name=SelPanel]:checked").val() == "FrequencyDomain" ||
+            $("form input:radio[name=SelPanel]:checked").val() == "Histogram") {
+            $("#rb_active_chan").attr("style", "visibility:display");
+        } else {
+            $("#rb_active_chan").attr("style", "visibility:hidden");
+        }
+    });
 
     if (mode == "TimeDomain") {
-        //draw_chan_svg();
         plot_time_domain();
     } else if (mode == "Scatter") {
         plot_scatter();
     } else if (mode == "Histogram") {
         plot_histogram();
+    } else if (mode == "FrequencyDomain") {
+        plot_spectrum();
     }
 
 });
 
-function draw_chan_svg() {
-    var data_ch0 = JSONData_ch0.slice();
-    var data_ch1 = JSONData_ch1.slice();
-
-    var svg = d3.select("#chart svg")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .style("border", "1px solid black");
-
-
-    var linearScaleX = d3.scale.linear()
-        .range([padding, width - padding])
-        .domain(d3.extent(data_ch0, function (d) { return d.x; }));
-
-    var linearScaleY = d3.scale.linear()
-        .range([height - padding, padding])
-        .domain(d3.extent(data_ch0, function (d) { return d.y; }));
-
-
-    var lineFunction = d3.svg.line()
-        .x(function (d) { return linearScaleX(d.x); })
-        .y(function (d) { return linearScaleY(d.y); })
-        .interpolate("linear");
-
-    var lineGraph_ch0 = svg.append("path")
-        .attr("d", lineFunction(data_ch0))
-        .attr("data-legend", "channel 0")
-        .attr("stroke", "blue")
-        .attr("stroke-width", 1)
-        .attr("fill", "none");
-
-    var lineGraph_ch1 = svg.append("path")
-        .attr("d", lineFunction(data_ch1))
-        .attr("data-legend", "channel 1")
-        .attr("stroke", "red")
-        .attr("stroke-width", 1)
-        .attr("fill", "none");
-
-    var xAxis = d3.svg.axis()
-        .scale(linearScaleX)
-        .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-        .scale(linearScaleY)
-        .orient("left");
-
-    var xAxisGroup = svg.append("g")
-        .attr("transform", "translate(0," + (height - padding) + ")")
-        .attr("class", "axis")
-        .call(xAxis);
-
-    var xAxisGroup = svg.append("g")
-        .attr("transform", "translate(" + padding + ",0)")
-        .attr("class", "axis")
-        .call(yAxis);
-
-    svg.append("svg:text")
-        .attr("class", "title")
-	    .attr("x", 20)
-	    .attr("y", 20)
-	    .text("Time-Domain Analyzer");
-
-
-    var legend = svg.append("g")
-       .attr("class", "legend")
-       .attr("transform", "translate(" + (width - 80) + ", 20)")
-       .style("font-size", "12px")
-       .call(d3.legend);
-
-}
-
 function plot_scatter() {
-    var data = JSONData_plan.slice();
+    var data = JSONData_scatter.slice();
 
     var linearScaleX = d3.scale.linear()
         .range([padding, width - padding])
@@ -152,7 +88,6 @@ function plot_scatter() {
         .attr("class", "axis")
         .call(yAxis);
 }
-
 
 function plot_time_domain() {
     nv.addGraph(function () {
@@ -230,6 +165,29 @@ function plot_histogram() {
         d3.select('#chart svg')
             .datum(data_hist)
           .transition().duration(500)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+    });
+
+}
+
+function plot_spectrum() {
+    var data_spec = JSONData_spec.slice();
+    nv.addGraph(function () {
+        var chart = nv.models.discreteBarChart()
+               .x(function (d) { return d.label })
+               .y(function (d) { return d.value })
+               .staggerLabels(false)
+               .tooltips(false)
+               .showValues(false)
+                
+
+        d3.select('#chart svg')
+            .datum(data_spec)
+            .transition().duration(500)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
