@@ -41,7 +41,7 @@ namespace rfdp.Models
             RMS = 0;
             Power = 0;
 
-            DataBinNo = 40;
+            DataBinNo = 80;
             SamplingFrequency = 0;
         }
 

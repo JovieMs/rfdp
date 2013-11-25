@@ -158,9 +158,9 @@ function plot_histogram() {
         var chart = nv.models.discreteBarChart()
                .x(function (d) { return d.label })
                .y(function (d) { return d.value })
-               .staggerLabels(true)
+               .staggerLabels(false)
                .tooltips(false)
-               .showValues(true)
+               .showValues(false)
 
         d3.select('#chart svg')
             .datum(data_hist)

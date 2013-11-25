@@ -95,7 +95,7 @@ namespace rfdp.Models
             if (len > 0)
             {
                 json = "{\"x\":" + Signal[0].Data[0].ToString("F2") + ", \"y\":" + Signal[1].Data[0].ToString("F2") + "} ";
-                    
+
                 for (int i = 1; i < len; i++)
                 {
                     json += ",{\"x\":" + Signal[0].Data[i].ToString("F2") + ", \"y\":" + Signal[1].Data[i].ToString("F2") + "} ";
@@ -118,11 +118,16 @@ namespace rfdp.Models
                 this.Length[i] = Signal[i].Length;
             }
 
-            JsonData[0] = Signal[0].ConvertDataToJson();
-            JsonData[1] = Signal[1].ConvertDataToJson();
-            JsonData[2] = ConvertDualSignalToJson();
-
-            if (analysisMode == AnalysisMode.Histogram)
+            if (analysisMode == AnalysisMode.TimeDomain)
+            {
+                JsonData[0] = Signal[0].ConvertDataToJson();
+                JsonData[1] = Signal[1].ConvertDataToJson();
+            }
+            else if (analysisMode == AnalysisMode.Scatter)
+            {
+                JsonData[2] = ConvertDualSignalToJson();
+            }
+            else if (analysisMode == AnalysisMode.Histogram)
             {
                 JsonData[3] = Signal[ActiveChan].ConvertBinsToJson();
             }
