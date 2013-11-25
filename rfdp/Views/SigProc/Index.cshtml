@@ -93,8 +93,6 @@
     {
         <fieldset>
             <legend>Configurations:</legend>
-            @Html.RadioButton("SelChan", 1, true) Single-Channel
-            @Html.RadioButton("SelChan", 2, false) Dual-Channel<p></p>
             Channel 0: @Html.DropDownList("datalist0") <br />
             Channel 1: @Html.DropDownList("datalist1") <br />
             Sampling Frequency: @Html.TextBox("fs", 100, new { size = "5" }) MHz

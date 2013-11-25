@@ -150,15 +150,14 @@ namespace rfdp.Models
             if (Length != 0)
             {
                 double step = (Max - Min) / DataBinNo;
-                json = "[{\"values\": [";
-                for (int i = 0; i < DataBinNo - 1; i++)
+                json = "{\"x\":" + (Min + step * 0).ToString("F2") + ", \"y\":" + DataBins[0].ToString("F0") + "}";
+                for (int i = 1; i < DataBinNo; i++)
                 {
-                    json += "{\"label\":" + (Min + step * i).ToString("F2") + ", \"value\":" + DataBins[i].ToString("F0") + "},";
+                    json += ", {\"x\":" + (Min + step * i).ToString("F2") + ", \"y\":" + DataBins[i].ToString("F0") + "}";
                 }
-                json += "{\"label\":" + (Min + step * (DataBinNo - 1)).ToString("F2") + ", \"value\":" + DataBins[DataBinNo - 1].ToString("F0") + "}";
-                json += "]}]";
+                json = "[" + json + "]";
             }
-            
+
             return json;
         }
         public string ConvertSpectrumToJson()
@@ -188,32 +187,5 @@ namespace rfdp.Models
             return json;
         }
 
-        public string ConvertSpectrumBinToJson()
-        {
-            string json = "[]";
-            if (Length != 0)
-            {
-                json = "[{\"values\": [";
-                double tmp;
-                double freq_interval = SamplingFrequency / (2 * Length);
-                for (int i = 0; i < (ComplexSpectrum.Length / 2); i++)
-                {
-                    tmp = alglib.math.abscomplex(ComplexSpectrum[i]);
-                    if (i == 0)
-                    {
-                        json += "{\"label\": " + Convert.ToString(freq_interval * i) + ", \"value\": " + Convert.ToString(tmp) + "}";
-
-                    }
-                    else
-                    {
-                        json += ",{\"label\": " + Convert.ToString(freq_interval * i) + ", \"value\": " + Convert.ToString(tmp) + "}";
-                    }
-
-                }
-                json += "]}]";
-            }
-
-            return json;
-        }
     }
 }

@@ -23,6 +23,7 @@ $(document).ready(function () {
         }
     });
 
+
     if (mode == "TimeDomain") {
         plot_time_domain();
     } else if (mode == "Scatter") {
@@ -153,24 +154,57 @@ function plot_time_domain() {
 }
 
 function plot_histogram() {
-    var data_hist = JSONData_hist.slice();
+    var chart;
     nv.addGraph(function () {
-        var chart = nv.models.discreteBarChart()
-               .x(function (d) { return d.label })
-               .y(function (d) { return d.value })
-               .staggerLabels(false)
-               .tooltips(false)
-               .showValues(false)
+        chart = nv.models.historicalBarChart();
+        chart
+          .margin({ left: 100, bottom: 100 })
+          .x(function (d, i) { return i })
+          .transitionDuration(250)
+        ;
+
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+        chart.xAxis
+          .axisLabel("Value")
+          .tickFormat(d3.format(',.1f'));
+
+        chart.yAxis
+          .axisLabel('Bins')
+          .tickFormat(d3.format(',.2f'));
+
+        chart.showXAxis(true);
 
         d3.select('#chart svg')
-            .datum(data_hist)
-          .transition().duration(500)
-            .call(chart);
+          .datum(sinData())
+          .transition().duration(0)
+          .call(chart);
 
+        //TODO: Figure out a good way to do this automatically
         nv.utils.windowResize(chart.update);
+        //nv.utils.windowResize(function() { d3.select('#chart1 svg').call(chart) });
+
+        chart.dispatch.on('stateChange', function (e) { nv.log('New State:', JSON.stringify(e)); });
 
         return chart;
     });
+
+
+    function sinData() {
+        var data_hist = JSONData_hist.slice();
+        var sin = [];
+
+        for (var i = 0; i < data_hist.length; i++) {
+            sin.push({ x: data_hist[i].x, y: data_hist[i].y });
+        }
+
+        return [
+          {
+              values: sin,
+              key: "Histogram",
+              color: "#ff7f0e"
+          }
+        ];
+    }
 
 }
 

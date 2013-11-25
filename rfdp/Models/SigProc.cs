@@ -25,7 +25,6 @@ namespace rfdp.Models
         public double Duration { get; set; }
         public string[] JsonData { get; set; }
         public AnalysisMode analysisMode { get; set; }
-        public ChannelMode channelMode { get; set; }
         public int ActiveChan { get; set; }
 
         public SigData[] Signal;

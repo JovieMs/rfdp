@@ -34,7 +34,6 @@ namespace rfdp.Controllers
             SigProcEngine.DataFile[1] = datalist1;
             SigProcEngine.SamplingFrequency = fs;
             SigProcEngine.analysisMode = (AnalysisMode) Enum.Parse(typeof(AnalysisMode), SelPanel);
-            SigProcEngine.channelMode = (ChannelMode) SelChan;
             SigProcEngine.ActiveChan = activeChan;
             SigProcEngine.ProcessStat();
             SigProcEngine.ReturnStat();
