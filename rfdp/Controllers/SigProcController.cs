@@ -19,12 +19,14 @@ namespace rfdp.Controllers
             DataSetList0.Add(new SelectListItem { Text = "square wave", Value = "square_wave.txt" });
             DataSetList0.Add(new SelectListItem { Text = "normal distribution", Value = "wgn_dist.txt" });
             DataSetList0.Add(new SelectListItem { Text = "scatter plot chan 0", Value = "scatter0.txt" });
+            DataSetList0.Add(new SelectListItem { Text = "QAM16 Real", Value = "qam16_real.txt" });
 
             List<SelectListItem> DataSetList1 = new List<SelectListItem>();
             DataSetList1.Add(new SelectListItem { Text = "cos wave", Value = "cos.txt" });
             DataSetList1.Add(new SelectListItem { Text = "low-pass square wave", Value = "square_wave_lp.txt" });
             DataSetList1.Add(new SelectListItem { Text = "data6", Value = "data6.txt" });
             DataSetList1.Add(new SelectListItem { Text = "scatter plot chan 1", Value = "scatter1.txt" });
+            DataSetList1.Add(new SelectListItem { Text = "QAM16 Imaginary", Value = "qam16_imag.txt" });
 
             ViewBag.datalist0 = DataSetList0;
             ViewBag.datalist1 = DataSetList1;

@@ -37,6 +37,9 @@ $(document).ready(function () {
 });
 
 function plot_scatter() {
+    var width = 800,
+        height = 800;
+
     var data = JSONData_scatter.slice();
 
     var linearScaleX = d3.scale.linear()
@@ -49,11 +52,11 @@ function plot_scatter() {
 
     var xAxis = d3.svg.axis()
         .scale(linearScaleX)
-        .orient("bottom");
+        .orient("top");
 
     var yAxis = d3.svg.axis()
         .scale(linearScaleY)
-        .orient("left");
+        .orient("right");
 
     var svg = d3.select("#chart svg")
         .append("svg")
@@ -65,27 +68,19 @@ function plot_scatter() {
       .data(data)
       .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 1)
+      .attr("r",2)
       .attr("cx", function (d) { return linearScaleX(d.x); })
       .attr("cy", function (d) { return linearScaleY(d.y); })
       .style("fill", function (d) { return "blue"; });
 
 
-    var xAxis = d3.svg.axis()
-    .scale(linearScaleX)
-    .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-        .scale(linearScaleY)
-        .orient("left");
-
     var xAxisGroup = svg.append("g")
-        .attr("transform", "translate(0," + (height - padding) + ")")
+        .attr("transform", "translate(0," + (height / 2) + ")")
         .attr("class", "axis")
         .call(xAxis);
 
-    var xAxisGroup = svg.append("g")
-        .attr("transform", "translate(" + padding + ",0)")
+    var yAxisGroup = svg.append("g")
+        .attr("transform", "translate(" + (width / 2 ) + ",0)")
         .attr("class", "axis")
         .call(yAxis);
 }

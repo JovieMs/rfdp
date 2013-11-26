@@ -253,6 +253,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Data\cos.txt" />
+    <Content Include="Data\qam16_imag.txt" />
+    <Content Include="Data\qam16_real.txt" />
     <Content Include="Data\scatter0.txt" />
     <Content Include="Data\scatter1.txt" />
     <Content Include="Data\sin.txt" />
